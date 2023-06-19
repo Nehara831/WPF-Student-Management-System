@@ -1,0 +1,19 @@
+﻿<Window x:Class="student_reg_system.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:student_reg_system"
+        mc:Ignorable="d"
+       Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        Background="Transparent" WindowStyle="None">
+    <StackPanel  Background="AliceBlue">
+        <Button Content="User" Click="Button_Click" Margin="500 100 500 50"></Button>
+        <Button Content="Admin " Click="Button_Click_1" Margin="500 50 500 50"></Button >
+        <Button Content="Login " Click="Button_Click_2" Margin="500 50 500 50"></Button >
+
+    </StackPanel>
+    </Window>
+    

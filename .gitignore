@@ -1,0 +1,8 @@
+student-reg-system/.vs/
+student-reg-system/student-reg-system/bin/
+student-reg-system/student-reg-system/obj/
+student-reg-system/sqlite/
+student-reg-system/UnitTestsStudentRegistration/bin/
+student-reg-system/UnitTestsStudentRegistration/obj/
+.vs/
+student-reg-system/student-reg-system/Migrations/
