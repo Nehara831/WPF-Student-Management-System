@@ -14,7 +14,7 @@ namespace student_reg_system.Models
     {
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
-       public string Grade { get; set; }
+     
         public double CreditValue { get; set; }
         public double GradePoint { get; set; }
         

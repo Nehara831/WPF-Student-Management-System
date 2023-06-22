@@ -142,6 +142,9 @@ namespace student_reg_system.ViewModels
 
             }
             ClearTextBoxes();
+           /* UserId = 0;
+            UserDepartment= null;*/
+
             var currentWindow = Application.Current.Windows.OfType<UserRegistration>().SingleOrDefault(w => w.IsActive);
             currentWindow?.Close();
             var currentWindow1 = Application.Current.Windows.OfType<AdminView>().SingleOrDefault(w => w.IsActive);
