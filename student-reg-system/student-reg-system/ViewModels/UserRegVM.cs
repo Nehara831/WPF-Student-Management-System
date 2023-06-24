@@ -64,22 +64,7 @@ namespace student_reg_system.ViewModels
 
 
         }
-       /* public UserRegVM(User user, List<Module> moduleList)
-        {
-
-            ModuleList = new ObservableCollection<Module>(moduleList);
-            UserId = user.IDUser;
-            UserFirstName = user.FirstNameUser;
-            UserLastName = user.LastNameUser;
-            UserEmail = user.EmailUser;
-            UserDepartment = user.DepartmentUser;
-            UserPhone = user.PhoneUser;
-            UserPassword = user.Password;
-            UserUserName = user.UserName;
-            UpdateSelectedModulesForUser(user);
-           
-
-        }*/
+      
 
         [RelayCommand]
         public void AddUser()
@@ -237,15 +222,24 @@ namespace student_reg_system.ViewModels
         public void ClearTextBoxes()
         {
             var window = Application.Current.Windows.OfType<UserRegistration>().SingleOrDefault(x => x.IsActive);
+            var viewModel = window.DataContext as UserRegVM;
+
+            if (viewModel != null)
+            {
+                viewModel.UserDepartment = string.Empty;
+                viewModel.UserId = default;
+                // Clear other properties as necessary
+            }
 
             window.t1.Clear();
-            window.t2.Text = "";
-            window.t3.Text = "";
-            window.t4.Text = "";
-            window.t5.Text = "";
-            window.t6.Text = "";
-            window.t7.Text = "";
-            window.t8.Text = "";
+            window.t2.Clear();
+            window.t3.Clear();
+            window.t4.Clear();
+            window.t5.Clear();
+            window.t6.Clear();
+            window.t7.Clear();
+            window.t8.Clear();
+            
            
            // window.myComboBox.SelectedItem = null;
         }
