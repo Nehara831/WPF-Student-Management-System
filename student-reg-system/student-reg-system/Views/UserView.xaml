@@ -38,7 +38,7 @@
                         <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="C:\Users\User\OneDrive\Desktop\Student-sys\student-reg-system\student-reg-system\Images\p1.jpg"/>
+                                    <ImageBrush ImageSource="D:\UOR education\SEM03\PP-Project\GUI-Project\Updated-Repo\WPF-Student-Management-System\student-reg-system\student-reg-system\Images\p1.jpg"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>

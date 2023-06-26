@@ -66,7 +66,6 @@
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Beige">
 
                                     </Border>
-
                                     <TextBlock Text="{Binding  ModuleId}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>

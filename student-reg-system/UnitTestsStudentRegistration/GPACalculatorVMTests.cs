@@ -10,7 +10,7 @@ namespace student_reg_system.UnitTestsStudentRegistration
     public class GPACalculatorVMTests
     {
 
-        private readonly string _path = @"C:\Users\User\OneDrive\Desktop\Student-sys\student-reg-system\sqlite\StudentData.db";
+        private readonly string _path = @"D:\UOR education\SEM03\PP-Project\GUI-Project\Updated-Repo\WPF-Student-Management-System\student-reg-system\sqlite\StudentData.db";
         [Fact]
         public void SearchCommand_FetchesStudentFromDatabase()
         {
