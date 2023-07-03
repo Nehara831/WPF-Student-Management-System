@@ -114,6 +114,10 @@ namespace student_reg_system.ViewModels
         public void AddStudent()
 
         {
+
+            string dateString = DoB.ToString("yyyy-MM-dd");
+
+            MessageBox.Show(dateString);
             using (var db = new StudentContext())
             {
                 var existingStudent = db.Students.FirstOrDefault(u => u.StudentIDStudent == Id);
@@ -179,6 +183,10 @@ namespace student_reg_system.ViewModels
             }
         }
 
+        private bool IsNumeric(string input)
+        {
+            return int.TryParse(input, out _);
+        }
 
         public void LoadStudent()
         {
@@ -252,7 +260,7 @@ namespace student_reg_system.ViewModels
             window.t1.Text = "";
             window.t2.Text = "";
             window.t3.Text = "";
-            window.t4.Text = "";
+           
             window.t5.Text = "";
             window.t6.Text = "";
         }
@@ -310,19 +318,26 @@ namespace student_reg_system.ViewModels
                 foreach (var st in StudentList)
                 {
 
-                    if (string.Equals(st.FirstNameStudent, SearchName, StringComparison.OrdinalIgnoreCase) || string.Equals(st.LastNameStudent, SearchName, StringComparison.OrdinalIgnoreCase))
+                    if (st.FirstNameStudent.StartsWith(SearchName, StringComparison.OrdinalIgnoreCase))
                     {
                         stuList.Add(st);
                     }
 
                 }
-                StudentList = new ObservableCollection<Student>(stuList);
-              
+                if (stuList.Count > 0)
+                {
+                    StudentList = new ObservableCollection<Student>(stuList);
+                }
+                else
+                {
+                    
+                    MessageBox.Show("User is not in the database");
+                }
+
             }
 
-           
-
         }
+
         [RelayCommand]
         public void DeleteStudent(Student student)
 

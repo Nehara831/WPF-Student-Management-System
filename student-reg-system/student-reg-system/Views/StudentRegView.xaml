@@ -52,16 +52,16 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-             
+
 
                     <TextBox Grid.Column="1" Grid.Row="1"   Margin="10 10" VerticalAlignment="Center"  Foreground="#868686" Text="{Binding Id}" TextChanged="TextBox_TextChanged" Width="700" Height="35" Name="t1"/>
                     <TextBox Grid.Column="1" Grid.Row="4"   Margin="10 10" VerticalAlignment="Center" Foreground="#868686"  Text="{Binding FName}" Width="700" Height="35" Name="t2"/>
                     <TextBox Grid.Column="1" Grid.Row="6"   Margin="10 10" VerticalAlignment="Center" Foreground="#868686" Text="{Binding LName}" Height="35" Name="t3"/>
 
-                    <TextBox Grid.Column="1" Grid.Row="8"   Margin="10 10" VerticalAlignment="Center" Foreground="#868686" Text="{Binding DoB}" Height="35" Name="t4"/>
+                    <DatePicker Grid.Column="1" Grid.Row="8" Margin="10 10" VerticalAlignment="Center" Foreground="#868686" SelectedDate="{Binding DoB}" Height="35" Name="datePicker"/>
 
 
-                    <TextBlock Grid.Row="0" Text="Student ID" Style="{StaticResource text}"  Foreground="SlateGray" Height="30" VerticalAlignment="Top" Margin="10 0"/>
+                    <TextBlock Grid.Row="0" Text="Student ID" Style="{StaticResource text}"  Foreground="SlateGray" Height="30" VerticalAlignment="Top" Margin="10 0" />
                     <TextBlock Grid.Row="3" Text="First Name" Style="{StaticResource text}"  Foreground="SlateGray" Height="30" VerticalAlignment="Center" Margin="10 0"/>
                     <TextBlock Grid.Row="5" Text="Last Name" Style="{StaticResource text}"  Foreground="SlateGray" Height="30" VerticalAlignment="Center" Margin="10 0"/>
                     <TextBlock Grid.Row="7" Text="Date of Birth" Style="{StaticResource text}"  Foreground="SlateGray" Height="30" VerticalAlignment="Center" Margin="10 0"/>

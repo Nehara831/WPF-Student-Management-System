@@ -13,7 +13,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     
-    <Border CornerRadius="30" Background="#EFF2F7" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border Background="#EFF2F7" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -28,11 +28,9 @@
                 </Grid.RowDefinitions>
 
                 <!--Menu Icon-->
-                <Button Style="{StaticResource topButton}" HorizontalAlignment="Left" Margin="20 28 0 35">
-                    <Icon:PackIconMaterial Kind="Menu" Width="15" Height="15" />
-                </Button>
 
-                <Border Grid.Row="1" Background="#623ED0" CornerRadius="0 50 0 30">
+
+                <Border Grid.Row="1" Background="#623ED0" CornerRadius="0 50 0 0" Margin="0 60 0 0">
                     <DockPanel>
                         <!--Menu Logo-->
                         <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
@@ -52,12 +50,7 @@
 
                         <!--Menu Buttons-->
                         <StackPanel DockPanel.Dock="Top" >
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"/>
-                                </StackPanel>
-                            </Button>
+
 
                             <Button Style="{StaticResource menuButton}" Click="ShowCalculator">
                                 <StackPanel Orientation="Horizontal">
@@ -75,12 +68,7 @@
 
 
 
-                            <Button Style="{StaticResource menuButton}" Command="{Binding ShowModulesCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="ForumOutline" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Annoucements"/>
-                                </StackPanel>
-                            </Button>
+     
 
                         </StackPanel>
                         
