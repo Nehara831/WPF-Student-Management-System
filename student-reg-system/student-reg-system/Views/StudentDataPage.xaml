@@ -120,7 +120,9 @@
                
                 <DataGridTextColumn Header=" Adress" Binding="{Binding AdressStudent }" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header=" Email" Binding="{Binding EmailAdress }" IsReadOnly="True" Width="*"/>
-
+                
+                <DataGridTextColumn Header=" GPA" Binding="{Binding Gpa }" IsReadOnly="True" Width="*"/>
+                
                 <DataGridTextColumn Header="Date Of Birth" Binding="{Binding DateofBirthStudent}" IsReadOnly="True" Width="*"/>
                 <DataGridTemplateColumn Header="Edit Student" IsReadOnly="True" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>

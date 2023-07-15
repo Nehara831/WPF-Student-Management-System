@@ -11,14 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace student_reg_system.ViewModels
 {
 
     public partial class GPACalculatorVM : ObservableObject
     {
+        [ObservableProperty]
+        public double? gpa;
 
-        public double GPA;
+
         [ObservableProperty]
         public int? studentId;
 
@@ -28,8 +31,7 @@ namespace student_reg_system.ViewModels
         public string? studenEmail;
 
 
-        
-
+       
 
         [ObservableProperty]
         public ObservableCollection<Module> moduleList = new ObservableCollection<Module>();
@@ -50,26 +52,35 @@ namespace student_reg_system.ViewModels
             using (StudentContext context = new StudentContext())
             {
                 var student = context.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
-                using (var db = new StudentContext())
-                {
-                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
-                }
 
-                ModuleList = new ObservableCollection<Module>(student.Modules);
-                StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
-                StudenEmail = student.EmailAdress;
-
-                foreach (var module in ModuleList)
+                if(student != null)
                 {
-                    StudentModules studentmodule = new StudentModules()
+                    using (var db = new StudentContext())
                     {
-                        StudentId = student.StudentIDStudent,
-                        ModuleId = module.ModuleId,
-                        ModukeName=module.ModuleName,
-                        CreditValue=module.CreditValue,
-                    };
-                    StudentModuleList.Add(studentmodule);
+                        student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
+                    }
+
+                    ModuleList = new ObservableCollection<Module>(student.Modules);
+                    StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
+                    StudenEmail = student.EmailAdress;
+
+                    foreach (var module in ModuleList)
+                    {
+                        StudentModules studentmodule = new StudentModules()
+                        {
+                            StudentId = student.StudentIDStudent,
+                            ModuleId = module.ModuleId,
+                            ModukeName = module.ModuleName,
+                            CreditValue = module.CreditValue,
+                        };
+                        StudentModuleList.Add(studentmodule);
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("No matching student found ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
 
 
 
@@ -109,6 +120,29 @@ namespace student_reg_system.ViewModels
             [RelayCommand]
             public void CalculateGPA()
             {
+                using (var db = new StudentContext())
+                {
+                    var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
+
+
+                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
+
+                    foreach (var stmodule in StudentModuleList)
+                    {
+                        var existingStudent = db.StudentModules.FirstOrDefault(u => u.StudentId == StudentId);
+                        if (existingStudent == null)
+                        {
+                            db.StudentModules.Add(stmodule);
+
+                        }
+
+
+                    }
+
+                    db.SaveChanges();
+                }
+
+
                 double point = 0;
                 double sumOfCredits = 0.0000001;
                 double totalQualityPoints = 0;
@@ -179,7 +213,18 @@ namespace student_reg_system.ViewModels
                         gpa = totalQualityPoints / totalCreditValues;
                     }
 
-                    MessageBox.Show($"{gpa}");
+                    Gpa = gpa;
+
+                    using (var db1 = new StudentContext())
+                    {
+                        var studentdb = db1.Students.FirstOrDefault(s => s.StudentIDStudent == StudentId);
+
+                        studentdb.Gpa = gpa;
+
+                        db1.SaveChanges();
+                    }
+
+               
                 }
             }
 

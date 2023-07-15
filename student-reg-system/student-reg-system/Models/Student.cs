@@ -22,6 +22,7 @@ namespace student_reg_system.Models
         public DateOnly DateofBirthStudent { get; set; }
         public string AdressStudent { get; set; }
 
+        public double Gpa { get; set; }
   
         public string EmailAdress { get; set; }
         public ICollection<Module> Modules { get; set; }

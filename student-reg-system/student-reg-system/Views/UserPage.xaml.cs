@@ -59,5 +59,22 @@ namespace student_reg_system.Views
             // Show a message box with the user's name
             System.Windows.MessageBox.Show($"User {user.FirstNameUser} {user.LastNameUser} is checked.");
         }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != Application.Current.MainWindow)
+                {
+                    window.Close();
+                }
+            }
+
+            LoginView newlogin = new LoginView();
+            newlogin.Show();
+
+
+
+        }
     }
 }
