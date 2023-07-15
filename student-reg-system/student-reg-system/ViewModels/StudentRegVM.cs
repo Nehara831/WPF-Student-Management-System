@@ -42,7 +42,7 @@ namespace student_reg_system.ViewModels
         [ObservableProperty]
         public string? lName;
         [ObservableProperty]
-        public DateOnly doB;
+        public string? doB;
         [ObservableProperty]
         public string? adres;
 
@@ -115,9 +115,10 @@ namespace student_reg_system.ViewModels
 
         {
 
-            string dateString = DoB.ToString("yyyy-MM-dd");
+            
+            DoB = getDateOfBirth(DoB);
 
-            MessageBox.Show(dateString);
+        
             using (var db = new StudentContext())
             {
                 var existingStudent = db.Students.FirstOrDefault(u => u.StudentIDStudent == Id);
@@ -181,6 +182,15 @@ namespace student_reg_system.ViewModels
                 newview.Show();
 
             }
+        }
+
+        private String getDateOfBirth(String dob)
+        {
+            string[] parts = dob.Split(' ');
+
+            string date = parts[0];
+
+            return date;
         }
 
         private bool IsNumeric(string input)

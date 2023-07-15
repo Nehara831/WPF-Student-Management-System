@@ -51,15 +51,24 @@ namespace student_reg_system.ViewModels
             using(StudentContext context = new StudentContext())
             {
                 var student = context.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
-                using (var db = new StudentContext())
+                if(student != null)
                 {
-                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
+                    using (var db = new StudentContext())
+                    {
+                        student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
+                    }
+
+                    ModuleList = new ObservableCollection<Module>(student.Modules);
+
+                    StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
+                    StudenEmail = student.EmailAdress;
+                }
+                else
+                {
+                    MessageBox.Show("Student Not Found!");
                 }
 
-                ModuleList = new ObservableCollection<Module>(student.Modules);
 
-                StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
-                StudenEmail = student.EmailAdress;
             }
         }
         
