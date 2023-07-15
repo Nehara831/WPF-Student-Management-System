@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using student_reg_system.database;
 using student_reg_system.Models;
+using student_reg_system.Views.AlertWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace student_reg_system.ViewModels
     public partial class GPACalculatorVM : ObservableObject
     {
         [ObservableProperty]
-        public double? gpa;
+        public double gpa;
 
 
         [ObservableProperty]
@@ -65,14 +66,85 @@ namespace student_reg_system.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Student Not Found!");
+                    
+                    AlertBox alert = new AlertBox("Not Found!", "Student not found in database. please check the details again!");
+                    alert.Show();
                 }
 
 
             }
         }
         
-       
+       public double CalculateGPAForModules(ObservableCollection<Module> studentModules)
+        {
+
+            double totalQualityPoints = 0;
+            double totalCreditValues = 0;
+
+
+            foreach (var stmodule in studentModules)
+            {
+              
+                double gradeValue = 0;
+                switch (stmodule.Grade)
+                {
+                    case "A+":
+                        gradeValue = 4.0;
+                        break;
+                    case "A":
+                        gradeValue = 3.7;
+                        break;
+                    case "A-":
+                        gradeValue = 3.3;
+                        break;
+                    case "B+":
+                        gradeValue = 3.0;
+                        break;
+                    case "B":
+                        gradeValue = 2.7;
+                        break;
+                    case "B-":
+                        gradeValue = 2.3;
+                        break;
+                    case "C+":
+                        gradeValue = 2.0;
+                        break;
+                    case "C":
+                        gradeValue = 1.7;
+                        break;
+                    case "C-":
+                        gradeValue = 1.3;
+                        break;
+                    case "D":
+                        gradeValue = 1.0;
+                        break;
+                    case "F":
+                        gradeValue = 0.0;
+                        break;
+                    default:
+                        break;
+                }
+
+
+                double qualityPoints = gradeValue * stmodule.CreditValue;
+                totalQualityPoints += qualityPoints;
+                totalCreditValues += stmodule.CreditValue;
+            }
+
+            double sgpa;
+            if (totalCreditValues == 0)
+            {
+                // Avoid division by zero//////////////////////////////////////////////////////////////
+                sgpa = 0;
+            }
+
+            else
+            {
+                sgpa = totalQualityPoints / totalCreditValues;
+            }
+
+            return sgpa;
+        }
         
         
             [RelayCommand]
@@ -103,10 +175,7 @@ namespace student_reg_system.ViewModels
 
             }
 
-            double point = 0;
-                double sumOfCredits = 0.0000001;
-                double totalQualityPoints = 0;
-                double totalCreditValues = 0;
+
                 using (var db = new StudentContext())
                 {
                     var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
@@ -114,72 +183,20 @@ namespace student_reg_system.ViewModels
 
                     student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
 
-                    foreach (var stmodule in student.Modules)
-                    {
-                        double gradeValue = 0;
-                    switch (stmodule.Grade)
-                    {
-                        case "A+":
-                            gradeValue = 4.0;
-                            break;
-                        case "A":
-                            gradeValue = 3.7;
-                            break;
-                        case "A-":
-                            gradeValue = 3.3;
-                            break;
-                        case "B+":
-                            gradeValue = 3.0;
-                            break;
-                        case "B":
-                            gradeValue = 2.7;
-                            break;
-                        case "B-":
-                            gradeValue = 2.3;
-                            break;
-                        case "C+":
-                            gradeValue = 2.0;
-                            break;
-                        case "C":
-                            gradeValue = 1.7;
-                            break;
-                        case "C-":
-                            gradeValue = 1.3;
-                            break;
-                        case "D":
-                            gradeValue = 1.0;
-                            break;
-                        case "F":
-                            gradeValue = 0.0;
-                            break;
-                        default:
-                            break;
-                    }
+                    ObservableCollection<Module> modules = new ObservableCollection<Module>(student.Modules);
 
+          
 
-                    double qualityPoints = gradeValue * stmodule.CreditValue;
-                        totalQualityPoints += qualityPoints;
-                        totalCreditValues += stmodule.CreditValue;
-                    }
-                    double gpa;
-                    if (totalCreditValues == 0)
-                    {
-                        // Avoid division by zero//////////////////////////////////////////////////////////////
-                        gpa = 0;
-                    }
+                    Gpa = CalculateGPAForModules(modules);
 
-                    else
-                    {
-                        gpa = totalQualityPoints / totalCreditValues;
-                    }
-
-                    Gpa = gpa;
-
-                    using (var db1 = new StudentContext())
+                using (var db1 = new StudentContext())
                     {
                         var studentdb = db1.Students.FirstOrDefault(s => s.StudentIDStudent == StudentId);
 
-                        studentdb.Gpa = gpa;
+                        studentdb.Gpa = Gpa;
+
+                        NotifyWindow gpaNotify = new NotifyWindow("Student grade recodes saved successfully!");
+                        gpaNotify.Show();
 
                         db1.SaveChanges();
                     }

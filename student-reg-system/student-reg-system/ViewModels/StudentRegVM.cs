@@ -25,7 +25,7 @@ using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Windows.Media;
 using Microsoft.Data.Sqlite;
-
+using student_reg_system.Views.AlertWindows;
 
 namespace student_reg_system.ViewModels
 {
@@ -340,8 +340,9 @@ namespace student_reg_system.ViewModels
                 }
                 else
                 {
-                    
-                    MessageBox.Show("User is not in the database");
+
+                    AlertBox notfoundalert = new AlertBox("Student not found!", "Student is not in our datebase");
+                    notfoundalert.Show();
                 }
 
             }

@@ -231,6 +231,8 @@
                             Margin="10 0 30 0"
                             Orientation="Vertical">
 
+                        <TextBlock   Text="LogIn" TextWrapping="Wrap" FontSize="30" Style="{StaticResource text}"  Foreground="#623ED0" Height="40" VerticalAlignment="Center" Margin="10 0" HorizontalAlignment="Center"/>
+
 
 
                         <TextBlock Text="Username"

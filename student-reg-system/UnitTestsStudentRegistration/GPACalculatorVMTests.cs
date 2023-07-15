@@ -10,6 +10,7 @@ namespace student_reg_system.UnitTestsStudentRegistration
     public class GPACalculatorVMTests
     {
 
+  
         private readonly string _path = @"D:\UOR education\SEM03\PP-Project\GUI-Project\Updated-Repo\WPF-Student-Management-System\student-reg-system\sqlite\StudentData.db";
         [Fact]
         public void SearchCommand_FetchesStudentFromDatabase()
@@ -55,8 +56,31 @@ namespace student_reg_system.UnitTestsStudentRegistration
             }
         }
 
+        [Fact]
+        public void TestCalculateGPA()
+        {
+            ObservableCollection<Module> modules = new ObservableCollection<Module>
+            {
+                new Module { ModuleId = 3301, Grade = "C", CreditValue = 3},
+                new Module { ModuleId = 3201, Grade = "A", CreditValue = 2},
+                new Module { ModuleId = 3303, Grade = "A", CreditValue = 3},
+            };
+
+            var vm = new GPACalculatorVM();
+
+            double expectedGpa = (3 * 1.7 + 2 * 3.7 + 3 * 3.7)/ 8;
+
+            double actualGPA = vm.CalculateGPAForModules(modules);
+
+            Assert.Equal(expectedGpa, actualGPA);
+
+
+        }
+
          
 
 
     }
+
+
 }

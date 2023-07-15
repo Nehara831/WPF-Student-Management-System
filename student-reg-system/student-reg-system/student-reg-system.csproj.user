@@ -13,6 +13,12 @@
     <Compile Update="Views\AdminView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\AlertWindows\AlertBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AlertWindows\NotifyWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\EditUser.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +40,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AlertWindows\AlertBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AlertWindows\NotifyWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\EditUser.xaml">

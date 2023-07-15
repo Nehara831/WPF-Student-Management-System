@@ -36,9 +36,12 @@
                            Panel.ZIndex="1" Text="Search here ..."
                            Visibility="{Binding ElementName=textBoxSearch, Converter={StaticResource BoolToVis}}" />
 
-                <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
+                <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}" Text="{Binding SearchName}"/>
 
-                <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+                <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc" Command="{Binding SearchCommand}">
+                    <Icon:PackIconMaterial Kind="Magnify"/>
+                </Button>
+                
             </Grid>
 
             <!--Top Buttons-->
@@ -75,14 +78,6 @@
            
             <TextBlock Text="Filter by" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-            <!--Filter Textbox-->
-            <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search in Users ..."></TextBlock>
-
-
-                <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}"/>
-            </Grid>
 
             <!--Members Data Grid-->
             <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}" ItemsSource="{Binding Path=UsersList }" >
@@ -95,7 +90,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="#1098AD">
-                                        <TextBlock Text="{Binding FirstNameUser[0]}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        <TextBlock Text="{Binding FirstNameUser}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
 
                                     </Border>
 
