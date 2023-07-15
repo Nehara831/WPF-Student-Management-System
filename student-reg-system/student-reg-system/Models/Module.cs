@@ -14,21 +14,21 @@ namespace student_reg_system.Models
     {
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
-     
+        public string Grade { get; set; }
         public double CreditValue { get; set; }
-        public double GradePoint { get; set; }
         
-        
+
+
         public string Department { get; set; }
 
-       
+
         public ICollection<Student> Students { get; set; }
         public ICollection<User> Users { get; set; }
 
-        
+
         private bool _isSelected;
 
-        
+
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -39,13 +39,7 @@ namespace student_reg_system.Models
             }
         }
 
-        public Module(int moduleId, string moduleName, double creditValue)
-        {
-
-            ModuleId = moduleId;
-            ModuleName = moduleName;
-            CreditValue = creditValue;
-        }
+       
         public Module() { }
 
 
