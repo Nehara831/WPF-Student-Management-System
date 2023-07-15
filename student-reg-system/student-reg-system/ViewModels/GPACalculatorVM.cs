@@ -39,8 +39,7 @@ namespace student_reg_system.ViewModels
         [ObservableProperty]
         public ObservableCollection<string> gradeList = new ObservableCollection<string>();
 
-        [ObservableProperty]
-        public ObservableCollection<StudentModules> studentModuleList = new ObservableCollection<StudentModules>();
+       
         public GPACalculatorVM()
         {
             GradeList = new ObservableCollection<string>() { "A", "B", "C", "A+", "B+", "C+", "A-", "B-", "C-", "D", "F" };
@@ -49,48 +48,27 @@ namespace student_reg_system.ViewModels
         [RelayCommand]
         public void Search()
         {
-            using (StudentContext context = new StudentContext())
+            using(StudentContext context = new StudentContext())
             {
                 var student = context.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
-
-                if(student != null)
+                using (var db = new StudentContext())
                 {
-                    using (var db = new StudentContext())
-                    {
-                        student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
-                    }
-
-                    ModuleList = new ObservableCollection<Module>(student.Modules);
-                    StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
-                    StudenEmail = student.EmailAdress;
-
-                    foreach (var module in ModuleList)
-                    {
-                        StudentModules studentmodule = new StudentModules()
-                        {
-                            StudentId = student.StudentIDStudent,
-                            ModuleId = module.ModuleId,
-                            ModukeName = module.ModuleName,
-                            CreditValue = module.CreditValue,
-                        };
-                        StudentModuleList.Add(studentmodule);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No matching student found ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
                 }
 
+                ModuleList = new ObservableCollection<Module>(student.Modules);
 
-
-
+                StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
+                StudenEmail = student.EmailAdress;
             }
         }
-        [RelayCommand]
-        public void Save()
-        {
-
-
+        
+       
+        
+        
+            [RelayCommand]
+            public void CalculateGPA()
+            {
             using (var db = new StudentContext())
             {
                 var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
@@ -98,52 +76,25 @@ namespace student_reg_system.ViewModels
 
                 student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
 
-                foreach (var stmodule in StudentModuleList)
+                foreach (var module in ModuleList)
                 {
-                    var existingStudent = db.StudentModules.FirstOrDefault(u => u.StudentId== StudentId);
-                    if (existingStudent == null)
+                    foreach (var mod in student.Modules)
                     {
-                        db.StudentModules.Add(stmodule);
+                        if (mod.ModuleId == module.ModuleId)
+                        {
 
+                            mod.Grade = module.Grade;
+
+
+                        }
                     }
-
-
-                }
-               
                     db.SaveChanges();
                 }
 
 
             }
-        
-        
-            [RelayCommand]
-            public void CalculateGPA()
-            {
-                using (var db = new StudentContext())
-                {
-                    var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
 
-
-                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
-
-                    foreach (var stmodule in StudentModuleList)
-                    {
-                        var existingStudent = db.StudentModules.FirstOrDefault(u => u.StudentId == StudentId);
-                        if (existingStudent == null)
-                        {
-                            db.StudentModules.Add(stmodule);
-
-                        }
-
-
-                    }
-
-                    db.SaveChanges();
-                }
-
-
-                double point = 0;
+            double point = 0;
                 double sumOfCredits = 0.0000001;
                 double totalQualityPoints = 0;
                 double totalCreditValues = 0;
@@ -154,7 +105,7 @@ namespace student_reg_system.ViewModels
 
                     student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
 
-                    foreach (var stmodule in StudentModuleList)
+                    foreach (var stmodule in student.Modules)
                     {
                         double gradeValue = 0;
                     switch (stmodule.Grade)

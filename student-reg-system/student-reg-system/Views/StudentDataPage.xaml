@@ -96,15 +96,15 @@
         <!--Members Data Grid-->
         <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}" ItemsSource="{Binding StudentList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header=" Student Id" Binding="{Binding StudentIDStudent }" IsReadOnly="True" Width="0.5*"/>
+                <DataGridTextColumn Header="  Id" Binding="{Binding StudentIDStudent }" IsReadOnly="True" Width="0.5*"/>
 
                 <DataGridTemplateColumn Header="User Name" IsReadOnly="True" Width="1.5*">
                    
-                        <DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="#1098AD">
-                                    <TextBlock Text="{Binding FirstNameStudent}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                    <TextBlock Text="{Binding FirstNameStudent[0]}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
 
                                     </Border>
 
@@ -118,13 +118,13 @@
                     </DataGridTemplateColumn>
                
                
-                <DataGridTextColumn Header=" Adress" Binding="{Binding AdressStudent }" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header=" Email" Binding="{Binding EmailAdress }" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header=" Adress" Binding="{Binding AdressStudent }" IsReadOnly="True" Width="0.8*"/>
+                <DataGridTextColumn Header=" Email" Binding="{Binding EmailAdress }" IsReadOnly="True" Width="1.3*"/>
                 
-                <DataGridTextColumn Header=" GPA" Binding="{Binding Gpa }" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header=" GPA" Binding="{Binding Gpa }" IsReadOnly="True" Width="0.6*"/>
                 
                 <DataGridTextColumn Header="Date Of Birth" Binding="{Binding DateofBirthStudent}" IsReadOnly="True" Width="*"/>
-                <DataGridTemplateColumn Header="Edit Student" IsReadOnly="True" Width="auto">
+                <DataGridTemplateColumn Header="Edit Student" IsReadOnly="True"  Width="auto"> 
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

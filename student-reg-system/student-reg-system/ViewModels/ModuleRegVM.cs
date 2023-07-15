@@ -24,8 +24,7 @@ namespace student_reg_system.ViewModels
         public char gradeObservable;
         [ObservableProperty]
         public double creditValueObservable;
-        [ObservableProperty]
-        public double gradePointObservable;
+        
        
         
         [ObservableProperty]
@@ -49,10 +48,10 @@ namespace student_reg_system.ViewModels
                     ModuleName = ModuleNameObservable,
 
                     CreditValue = creditValueObservable,
-                    GradePoint = gradePointObservable,
+                   
                     
                    Department=userModuleDepartmentObservable,
-                  /* Grade="",*/
+                   Grade="",
 
                 };
                 db.Modules.Add(module);
@@ -69,7 +68,6 @@ namespace student_reg_system.ViewModels
 
             window.t1.Text = "";
             window.t2.Text = "";
-            window.t3.Text = "";
             window.t4.Text = "";
             window.t5.Text = "";
            
