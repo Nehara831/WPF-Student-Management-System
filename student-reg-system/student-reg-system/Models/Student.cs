@@ -19,7 +19,7 @@ namespace student_reg_system.Models
         
         public string FirstNameStudent { get; set; }
         public string LastNameStudent{ get; set; }
-        public DateOnly DateofBirthStudent { get; set; }
+        public string DateofBirthStudent { get; set; }
         public string AdressStudent { get; set; }
 
         public double Gpa { get; set; }

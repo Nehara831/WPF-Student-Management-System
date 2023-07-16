@@ -14,6 +14,7 @@ using student_reg_system.database;
 using student_reg_system.Views;
 
 using Microsoft.EntityFrameworkCore;
+using student_reg_system.Views.AlertWindows;
 
 namespace student_reg_system.ViewModels
 {
@@ -37,6 +38,8 @@ namespace student_reg_system.ViewModels
         [ObservableProperty]
         public int userPhone;
 
+        [ObservableProperty]
+        public string searchName;
 
         [ObservableProperty]
         public   ObservableCollection<User> usersList;
@@ -142,6 +145,44 @@ namespace student_reg_system.ViewModels
 
            
         }
+
+
+        [RelayCommand]
+        public void Search()
+        {
+            
+            using (StudentContext context = new StudentContext())
+            {
+
+             
+                ObservableCollection<User> userl = new ObservableCollection<User>();
+                foreach (var user in UsersList)
+                {
+                  
+
+                    if (user.FirstNameUser.StartsWith(SearchName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        
+                        userl.Add(user);
+                    }
+
+                }
+                if (userl.Count > 0)
+                {
+                    
+                    UsersList = new ObservableCollection<User>(userl);
+                }
+                else
+                {
+
+                    AlertBox notfoundalert = new AlertBox("User not found!", "User is not in the database.");
+                    notfoundalert.Show();
+                }
+
+            }
+
+        }
+
 
         [RelayCommand]
         public void LoadUser()

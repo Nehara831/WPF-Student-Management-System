@@ -28,7 +28,7 @@
                 <Icon:PackIconMaterial Kind="Magnify" RenderTransformOrigin="0.637,0.439"/>
             </Button>
         </Grid >
-        <Grid Margin="10 20">
+        <Grid Margin="10 20" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="0.35*"/>
@@ -75,7 +75,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header=" Module Name" Binding="{Binding ModukeName }" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header=" Module Name" Binding="{Binding ModuleName }" IsReadOnly="True" Width="*"/>
 
                     <DataGridTextColumn Header="Credit Value" Binding="{Binding CreditValue}" IsReadOnly="True" Width="*"/>
 
