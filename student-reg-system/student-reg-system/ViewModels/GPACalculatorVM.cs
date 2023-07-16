@@ -45,10 +45,9 @@ namespace student_reg_system.ViewModels
             GradeList = new ObservableCollection<string>() { "A", "B", "C", "A+", "B+", "C+", "A-", "B-", "C-", "D", "F" };
 
         }
-        [RelayCommand]
-        public void Search()
+        private void Search()
         {
-            using(StudentContext context = new StudentContext())
+            using (StudentContext context = new StudentContext())
             {
                 var student = context.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
                 using (var db = new StudentContext())
@@ -62,6 +61,8 @@ namespace student_reg_system.ViewModels
                 StudenEmail = student.EmailAdress;
             }
         }
+
+        
         
        
         

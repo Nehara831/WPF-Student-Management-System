@@ -14,8 +14,8 @@ namespace student_reg_system.database
 {
     public class StudentContext : DbContext
     {
-      /*  public StudentContext(DbContextOptions<StudentContext> options)
-        : base(options) { }*/
+      public StudentContext(DbContextOptions<StudentContext> options)
+        : base(options) { }
 
         public StudentContext()
         {
