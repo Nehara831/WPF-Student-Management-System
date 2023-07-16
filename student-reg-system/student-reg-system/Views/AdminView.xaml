@@ -8,7 +8,7 @@
         DataContext="viewmodels:UserRegVM"
        
         mc:Ignorable="c"
-         Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+         Height="720" Width="1000" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         Background="Transparent" WindowStyle="None">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -23,7 +23,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBlock></TextBlock>
-                <Button Style="{StaticResource topButton}" Margin="980 -630 20 20" Click="Button_Click_6" RenderTransformOrigin="0.733,0.633">
+                <Button Style="{StaticResource topButton}" Margin="900 -630 10 20" Click="Button_Click_6" RenderTransformOrigin="0.733,0.633">
                     <Icon:PackIconMaterial Kind="WindowMinimize" />
                 </Button>
                 <Button Style="{StaticResource topButton}" Margin="0 -630 0 20" Click="Button_Click_5">

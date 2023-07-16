@@ -30,7 +30,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
             <Border Width="70" Height="70" CornerRadius="50">
 
-                <Image Width="70" Height="70" Margin="1" Source="D:\UOR education\SEM03\Programming-Project\Personal-Project\Personal-Project\Asserts\TickMark.png" />
+                <Image Width="70" Height="70" Margin="1" Source="C:\Users\User\OneDrive\Desktop\WPF-Projects\Student-sys\student-reg-system\student-reg-system\Images\TickMark.png" />
             </Border>
         </StackPanel>
 

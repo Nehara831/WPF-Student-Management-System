@@ -92,13 +92,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="  Id" Binding="{Binding StudentIDStudent }" IsReadOnly="True" Width="0.6*"/>
 
-                <DataGridTemplateColumn Header="User Name" IsReadOnly="True" Width="1.5*">
+                <DataGridTemplateColumn Header="Student Name" IsReadOnly="True" Width="1.5*">
                    
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="#1098AD">
-                                    <TextBlock Text="{Binding FirstNameStudent}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                    <TextBlock Text="{Binding FirstNameStudent[0]}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
 
                                     </Border>
 

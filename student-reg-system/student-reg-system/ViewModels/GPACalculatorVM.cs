@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using student_reg_system.database;
 using student_reg_system.Models;
 using student_reg_system.Views.AlertWindows;
@@ -31,8 +32,9 @@ namespace student_reg_system.ViewModels
         [ObservableProperty]
         public string? studenEmail;
 
+        [ObservableProperty]
+        public int? studentIdTestBlock;
 
-       
 
         [ObservableProperty]
         public ObservableCollection<Module> moduleList = new ObservableCollection<Module>();
@@ -46,10 +48,13 @@ namespace student_reg_system.ViewModels
             GradeList = new ObservableCollection<string>() { "A", "B", "C", "A+", "B+", "C+", "A-", "B-", "C-", "D", "F" };
 
         }
-        private void Search()
+        [RelayCommand]
+        public void Search()
         {
+            
             using (StudentContext context = new StudentContext())
             {
+
                 var student = context.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
                 if(student != null)
                 {
@@ -57,8 +62,9 @@ namespace student_reg_system.ViewModels
                     {
                         student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
                     }
-
+                    
                     ModuleList = new ObservableCollection<Module>(student.Modules);
+                    StudentIdTestBlock = student.StudentIDStudent;
 
                     StudentName = student.FirstNameStudent + " " + student.LastNameStudent;
                     StudenEmail = student.EmailAdress;
@@ -135,7 +141,7 @@ namespace student_reg_system.ViewModels
             double sgpa;
             if (totalCreditValues == 0)
             {
-                // Avoid division by zero//////////////////////////////////////////////////////////////
+               
                 sgpa = 0;
             }
 
@@ -143,18 +149,17 @@ namespace student_reg_system.ViewModels
             {
                 sgpa = totalQualityPoints / totalCreditValues;
             }
-
+            
             return sgpa;
         }
-        
-        
-            [RelayCommand]
-            public void CalculateGPA()
-            {
+
+
+        [RelayCommand]
+        public void CalculateGPA()
+        {
             using (var db = new StudentContext())
             {
                 var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
-
 
                 student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
 
@@ -164,48 +169,37 @@ namespace student_reg_system.ViewModels
                     {
                         if (mod.ModuleId == module.ModuleId)
                         {
-
                             mod.Grade = module.Grade;
-
 
                         }
                     }
                     db.SaveChanges();
                 }
-
-
             }
 
+            using (var db = new StudentContext())
+            {
+                var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
 
-                using (var db = new StudentContext())
-                {
-                    var student = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == StudentId);
+                student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
 
+                ObservableCollection<Module> modules = new ObservableCollection<Module>(student.Modules);
 
-                    student.Modules = db.Students.Include(s => s.Modules).FirstOrDefault(s => s.StudentIDStudent == student.StudentIDStudent).Modules;
-
-                    ObservableCollection<Module> modules = new ObservableCollection<Module>(student.Modules);
-
-          
-
-                    Gpa = CalculateGPAForModules(modules);
+                var result= CalculateGPAForModules(modules);
+                double roundedValue = Math.Round(result, 2);
+                Gpa = result;
 
                 using (var db1 = new StudentContext())
-                    {
-                        var studentdb = db1.Students.FirstOrDefault(s => s.StudentIDStudent == StudentId);
-
-                        studentdb.Gpa = Gpa;
-
-                        NotifyWindow gpaNotify = new NotifyWindow("Student grade recodes saved successfully!");
-                        gpaNotify.Show();
-
-                        db1.SaveChanges();
-                    }
-
-               
+                {
+                    var studentdb = db1.Students.FirstOrDefault(s => s.StudentIDStudent == StudentId);
+                    studentdb.Gpa = Gpa;
+                    NotifyWindow gpaNotify = new NotifyWindow("Student grade recodes saved successfully!");
+                    gpaNotify.Show();
+                    db1.SaveChanges();
                 }
             }
-
-
         }
+
+
+    }
     } 

@@ -29,7 +29,7 @@ using student_reg_system.Views.AlertWindows;
 
 namespace student_reg_system.ViewModels
 {
-    partial class StudentRegVM : ObservableObject
+    public partial class StudentRegVM : ObservableObject
     {
 
 
@@ -64,8 +64,8 @@ namespace student_reg_system.ViewModels
         public string userEmailObservable;
         [ObservableProperty]
         public int testName;
-       /* [ObservableProperty]*/
-        
+        /* [ObservableProperty]*/
+
         [ObservableProperty]
         public static string testName2;
 
@@ -76,14 +76,14 @@ namespace student_reg_system.ViewModels
         public ObservableCollection<Module> moduleListStudent;
 
 
-        public static ObservableCollection<Module> SelectedModulesStudent;
+        public ObservableCollection<Module> SelectedModulesStudent;
 
-       
+
         public List<Module> selectedModules = new List<Module>();
 
         public bool IsSelectedModule { get; set; }
 
-      
+
 
         public StudentRegVM()
         {
@@ -95,7 +95,7 @@ namespace student_reg_system.ViewModels
         }
         public StudentRegVM(Student student, List<Module> moduleList)
         {
-            
+
             ModuleListStudent = new ObservableCollection<Module>(moduleList);
             Id = student.StudentIDStudent;
             FName = student.FirstNameStudent;
@@ -108,17 +108,15 @@ namespace student_reg_system.ViewModels
         }
 
 
-    
+
         [RelayCommand]
 
         public void AddStudent()
 
         {
-
-            
             DoB = getDateOfBirth(DoB);
 
-        
+
             using (var db = new StudentContext())
             {
                 var existingStudent = db.Students.FirstOrDefault(u => u.StudentIDStudent == Id);
@@ -150,7 +148,7 @@ namespace student_reg_system.ViewModels
                     DateofBirthStudent = DoB,
                     AdressStudent = Adres,
                     EmailAdress = Email,
-                  
+
                     Modules = selectedModules,
                     Users = new List<User>() { user },
 
@@ -168,21 +166,25 @@ namespace student_reg_system.ViewModels
                 }
 
                 db.SaveChanges();
-
-                LoadStudent();
-
-
-                ClearTextBoxes();
-                var currentWindow = Application.Current.Windows.OfType<StudentRegView>().SingleOrDefault(w => w.IsActive);
-                currentWindow?.Close();
-                var currentWindow1 = Application.Current.Windows.OfType<UserView>().SingleOrDefault(w => w.IsActive);
-                currentWindow1?.Close();
-                UserView newview = new UserView();
-
-                newview.Show();
-
             }
+
+
+
+            LoadStudent();
+
+
+            ClearTextBoxes();
+            var currentWindow = Application.Current.Windows.OfType<StudentRegView>().SingleOrDefault(w => w.IsActive);
+            currentWindow?.Close();
+            var currentWindow1 = Application.Current.Windows.OfType<UserView>().SingleOrDefault(w => w.IsActive);
+            currentWindow1?.Close();
+            UserView newview = new UserView();
+
+            newview.Show();
+
         }
+    
+
 
         private String getDateOfBirth(String dob)
         {
@@ -341,7 +343,7 @@ namespace student_reg_system.ViewModels
                 else
                 {
 
-                    AlertBox notfoundalert = new AlertBox("Student not found!", "Student is not in our datebase");
+                    AlertBox notfoundalert = new AlertBox("Student not found!", "Student is not in the datebase");
                     notfoundalert.Show();
                 }
 
